@@ -1,11 +1,12 @@
 CREATE TABLE driver_assignment_each_ride AS
 SELECT 
 	rrd.ride_id,
-	COUNT(dra.driver_id) AS driver_count
+	COUNT(dra.driver_id) AS driver_count,
+	rrd.status
 	
 FROM driver_ride_assignments AS dra
 	RIGHT JOIN raw_request_dataset AS rrd
 	USING(ride_id)
-GROUP BY rrd.ride_id
+GROUP BY rrd.ride_id, rrd.status
 
 ORDER BY driver_count ASC;
